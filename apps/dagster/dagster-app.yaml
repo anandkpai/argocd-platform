@@ -23,16 +23,6 @@ spec:
                 port: 3030
                 name: "user-code-example"
 
-        ingress:
-          enabled: true
-          dagsterWebserver:
-            host: dagster.localtest.me
-            path: /
-            pathType: Prefix
-            tls:
-              enabled: true
-              secretName: dagster-tls
-
         postgresql:
           enabled: true
           auth:
@@ -55,7 +45,6 @@ spec:
                 - "--python-file"
                 - "/example_project/example_repo/repo.py"
               port: 3030
-
 
 
   destination:
