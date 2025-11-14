@@ -16,14 +16,15 @@ spec:
         dagsterWebserver:
           service:
             type: ClusterIP
-          # Use workspace.yaml + user-code gRPC server
           workspace:
             enabled: true
             servers:
               - host: "dagster-user-deployments-k8s-example-user-code-1"
                 port: 3030
                 name: "user-code-example"
-          ingress:
+
+        ingress:
+          dagsterWebserver:
             enabled: true
             ingressClassName: nginx
             hosts:
@@ -53,12 +54,12 @@ spec:
             - name: "k8s-example-user-code-1"
               image:
                 repository: "docker.io/dagster/user-code-example"
-                # tag: ~  # let it default to chart version
                 pullPolicy: IfNotPresent
               dagsterApiGrpcArgs:
                 - "--python-file"
                 - "/example_project/example_repo/repo.py"
               port: 3030
+
 
 
   destination:
