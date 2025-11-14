@@ -1,22 +1,18 @@
-userDeployments:
-  enabled: true
-  enableSubchart: true
+dagster:
+  dagster-user-deployments:
+    enabled: true
+    enableSubchart: true
+    deployments:
+      - name: "git-user-code"
+        image:
+          repository: "docker.io/dagster/dagster-k8s"
+          tag: "1.12.1"
+        port: 3030
 
-  deployments:
-    - name: "git-user-code"
-
-      image:
-        repository: "docker.io/dagster/dagster-k8s"
-        tag: "1.12.1"
-        pullPolicy: IfNotPresent
-
-      port: 3030
-
-      serverK8sConfig:
-        containerConfig:
-          command: ["/bin/bash", "-c"]
-          args:
-            - |
+        serverK8sConfig:
+          containerConfig:
+            command: ["/bin/bash", "-c"]
+            args: |
               set -euo pipefail
 
               echo "Cloning git repo..."
@@ -28,9 +24,8 @@ userDeployments:
                 -p 3030 \
                 --python-file /workspace/dagster/hello.py
 
-          env:
-            - name: GIT_URL
-              value: "https://github.com/anandkpai/examples.git"
-
-            - name: GIT_REF
-              value: "main"
+            env:
+              - name: GIT_URL
+                value: "https://github.com/anandkpai/examples.git"
+              - name: GIT_REF
+                value: "main"
