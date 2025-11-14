@@ -7,9 +7,10 @@ spec:
   project: default
 
   source:
-    repoURL: https://dagster-io.github.io/helm
-    chart: dagster
-    targetRevision: 1.12.1
+    repoURL: https://github.com/anandkpai/argocd-platform.git
+    targetRevision: main
+    path: apps/dagster      
+   
     helm:
       releaseName: dagster
       valueFiles:
