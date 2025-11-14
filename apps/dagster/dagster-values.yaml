@@ -5,7 +5,7 @@ dagster:
     workspace:
       enabled: true
       servers:
-        - host: "dagster-dagster-user-deployments-git-user-code-1"
+        - host: "git-user-code"
           port: 3030
           name: "user-code-example"
 

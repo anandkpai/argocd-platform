@@ -4,7 +4,7 @@ dagster:
     enableSubchart: true
 
     deployments:
-      - name: "git-user-code-1"
+      - name: "git-user-code"
 
         image:
           repository: "docker.io/dagster/dagster-k8s"
