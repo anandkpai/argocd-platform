@@ -15,7 +15,8 @@ spec:
         dagsterWebserver:
           service:
             type: ClusterIP
-
+          workspace:
+            enabled: false
         postgresql:
           enabled: true
           auth:
