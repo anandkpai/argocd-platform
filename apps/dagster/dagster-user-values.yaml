@@ -3,23 +3,22 @@ dagster:
     enabled: true
     enableSubchart: true
 
-    userDeployments:
-      deployments:
-        - name: "git-user-code"
-          image:
-            repository: "docker.io/dagster/dagster-k8s"
-            tag: "1.12.1"
-            pullPolicy: IfNotPresent
+    deployments:
+      - name: "git-user-code"
+        image:
+          repository: "docker.io/dagster/dagster-k8s"
+          tag: "1.12.1"
+          pullPolicy: IfNotPresent
 
-          port: 3030
+        port: 3030
 
-          serverK8sConfig:
-            containerConfig:
-              command: ["/bin/bash", "-c"]
-              args: |
-                set -euo pipefail
-                echo "Test user-code container starting, going to sleep for 600s..."
-                sleep 600
-                echo "Woke up after 600s, exiting."
+        serverK8sConfig:
+          containerConfig:
+            command: ["/bin/bash", "-c"]
+            args: |
+              set -euo pipefail
+              echo "Test user-code container starting, going to sleep for 600s..."
+              sleep 600
+              echo "Woke up after 600s, exiting."
 
-              # no env needed for this test
+            # no env needed for this test
