@@ -1,19 +1,20 @@
-dagsterWebserver:
-  service:
-    type: ClusterIP
-  workspace:
-    enabled: true
-    servers:
-      - host: "dagster-user-deployments-k8s-example-user-code-1"
-        port: 3030
-        name: "user-code-example"
+dagster:
+  dagsterWebserver:
+    service:
+      type: ClusterIP
+    workspace:
+      enabled: true
+      servers:
+        - host: "dagster-dagster-user-deployments-git-user-code-1"
+          port: 3030
+          name: "user-code-example"
 
-postgresql:
-  enabled: true
-  auth:
-    username: dagster
-    password: dagster
-    database: dagster
-  primary:
-    persistence:
-      enabled: false
+  postgresql:
+    enabled: true
+    auth:
+      username: dagster
+      password: dagster
+      database: dagster
+    primary:
+      persistence:
+        enabled: false
