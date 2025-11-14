@@ -4,6 +4,7 @@ metadata:
   name: dagster-webserver
   namespace: dagster
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
