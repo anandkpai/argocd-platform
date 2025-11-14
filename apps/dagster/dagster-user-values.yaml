@@ -1,34 +1,36 @@
-dagster:
-  dagster-user-deployments:
-    enabled: true
-    enableSubchart: true
+userDeployments:
+  enabled: true
+  enableSubchart: true
 
-    deployments:
-      - name: "git-user-code"
+  deployments:
+    - name: "git-user-code"
 
-        image:
-          repository: "docker.io/dagster/dagster-k8s"
-          tag: "1.12.1"
-          pullPolicy: IfNotPresent
+      image:
+        repository: "docker.io/dagster/dagster-k8s"
+        tag: "1.12.1"
+        pullPolicy: IfNotPresent
 
-        port: 3030
+      port: 3030
 
-        serverK8sConfig:
-          containerConfig:
-            command: ["/bin/bash", "-c"]
-            args:
-              - |
-                set -euo pipefail
-                git clone --depth 1 --branch "${GIT_REF}" "${GIT_URL}" /workspace
+      serverK8sConfig:
+        containerConfig:
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              set -euo pipefail
 
-                exec dagster code-server start \
-                  -h 0.0.0.0 \
-                  -p 3030 \
-                  --python-file /workspace/dagster/hello.py
+              echo "Cloning git repo..."
+              git clone --depth 1 --branch "${GIT_REF}" "${GIT_URL}" /workspace
 
-            env:
-              - name: GIT_URL
-                value: "https://github.com/anandkpai/examples.git"
+              echo "Launching Dagster user code server..."
+              exec dagster code-server start \
+                -h 0.0.0.0 \
+                -p 3030 \
+                --python-file /workspace/dagster/hello.py
 
-              - name: GIT_REF
-                value: "main"
+          env:
+            - name: GIT_URL
+              value: "https://github.com/anandkpai/examples.git"
+
+            - name: GIT_REF
+              value: "main"
