@@ -11,10 +11,6 @@ dagster:
           tag: "1.12.1"
           pullPolicy: IfNotPresent
 
-        codeServerArgs:
-          - "--python-file"
-          - "/workspace/examples/dagster/hello.py"
-
         port: 3030
 
         serverK8sConfig:
@@ -28,7 +24,7 @@ dagster:
                 exec dagster code-server start \
                   -h 0.0.0.0 \
                   -p 3030 \
-                  --python-file /workspace/examples/dagster/hello.py
+                  --python-file /workspace/dagster/hello.py
 
             env:
               - name: GIT_URL
