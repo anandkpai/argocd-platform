@@ -17,8 +17,7 @@ dagster:
             command: ["/bin/bash", "-c"]
             args: |
               set -euo pipefail
-              echo "Test user-code container starting, going to sleep for 600s..."
-              sleep 600
-              echo "Woke up after 600s, exiting."
-
-            # no env needed for this test
+              echo "Custom command starting indefinitely..."
+              # Use an infinite sleep to keep the container running
+              sleep infinity
+                    # no env needed for this test
