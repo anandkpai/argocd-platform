@@ -17,6 +17,18 @@ spec:
             type: ClusterIP
           workspace:
             enabled: false
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - host: dagster.localtest.me
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - hosts:
+                  - dagster.localtest.me
+                secretName: dagster-tls            
         postgresql:
           enabled: true
           auth:
