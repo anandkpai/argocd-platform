@@ -7,7 +7,7 @@ dagster:
       - name: "git-user-code-1"
 
         image:
-          repository: "docker.io/dagster/dagster"
+          repository: "docker.io/dagster/agster-k8s:1.12.1"
           tag: "1.12.1"
           pullPolicy: IfNotPresent
 
