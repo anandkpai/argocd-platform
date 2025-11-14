@@ -24,18 +24,14 @@ spec:
                 name: "user-code-example"
 
         ingress:
+          enabled: true
           dagsterWebserver:
-            enabled: true
-            ingressClassName: nginx
-            hosts:
-              - host: dagster.localtest.me
-                paths:
-                  - path: /
-                    pathType: Prefix
+            host: dagster.localtest.me
+            path: /
+            pathType: Prefix
             tls:
-              - hosts:
-                  - dagster.localtest.me
-                secretName: dagster-tls
+              enabled: true
+              secretName: dagster-tls
 
         postgresql:
           enabled: true
