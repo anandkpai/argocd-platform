@@ -5,18 +5,24 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
     repoURL: https://dagster-io.github.io/helm
     chart: dagster
-    targetRevision: 1.12.1   # or latest
+    targetRevision: 1.12.1
     helm:
       releaseName: dagster
       values: |
         dagsterWebserver:
           service:
             type: ClusterIP
+          # Use workspace.yaml + user-code gRPC server
           workspace:
-            enabled: false
+            enabled: true
+            servers:
+              - host: "dagster-user-deployments-k8s-example-user-code-1"
+                port: 3030
+                name: "user-code-example"
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -28,7 +34,8 @@ spec:
             tls:
               - hosts:
                   - dagster.localtest.me
-                secretName: dagster-tls            
+                secretName: dagster-tls
+
         postgresql:
           enabled: true
           auth:
@@ -40,8 +47,20 @@ spec:
               enabled: false
 
         dagster-user-deployments:
-          enabled: false
-          enableSubchart: false           
+          enabled: true
+          enableSubchart: true
+          deployments:
+            - name: "k8s-example-user-code-1"
+              image:
+                repository: "docker.io/dagster/user-code-example"
+                # tag: ~  # let it default to chart version
+                pullPolicy: IfNotPresent
+              dagsterApiGrpcArgs:
+                - "--python-file"
+                - "/example_project/example_repo/repo.py"
+              port: 3030
+
+
   destination:
     server: https://kubernetes.default.svc
     namespace: dagster
