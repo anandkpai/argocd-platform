@@ -16,7 +16,6 @@ dagster:
           containerConfig:
             command: ["/bin/bash", "-c"]
             args: |
-              set -euo pipefail
               echo "Custom command starting indefinitely..."
               # Use an infinite sleep to keep the container running
               sleep infinity
