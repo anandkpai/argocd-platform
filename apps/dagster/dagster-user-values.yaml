@@ -2,30 +2,24 @@ dagster:
   dagster-user-deployments:
     enabled: true
     enableSubchart: true
-    deployments:
-      - name: "git-user-code"
-        image:
-          repository: "docker.io/dagster/dagster-k8s"
-          tag: "1.12.1"
-        port: 3030
 
-        serverK8sConfig:
-          containerConfig:
-            command: ["/bin/bash", "-c"]
-            args: |
-              set -euo pipefail
+    userDeployments:
+      deployments:
+        - name: "git-user-code"
+          image:
+            repository: "docker.io/dagster/dagster-k8s"
+            tag: "1.12.1"
+            pullPolicy: IfNotPresent
 
-              echo "Cloning git repo..."
-              git clone --depth 1 --branch "${GIT_REF}" "${GIT_URL}" /workspace
+          port: 3030
 
-              echo "Launching Dagster user code server..."
-              exec dagster code-server start \
-                -h 0.0.0.0 \
-                -p 3030 \
-                --python-file /workspace/dagster/hello.py
+          serverK8sConfig:
+            containerConfig:
+              command: ["/bin/bash", "-c"]
+              args: |
+                set -euo pipefail
+                echo "Test user-code container starting, going to sleep for 600s..."
+                sleep 600
+                echo "Woke up after 600s, exiting."
 
-            env:
-              - name: GIT_URL
-                value: "https://github.com/anandkpai/examples.git"
-              - name: GIT_REF
-                value: "main"
+              # no env needed for this test
