@@ -12,40 +12,9 @@ spec:
     targetRevision: 1.12.1
     helm:
       releaseName: dagster
-      values: |
-        dagsterWebserver:
-          service:
-            type: ClusterIP
-          workspace:
-            enabled: true
-            servers:
-              - host: "dagster-user-deployments-k8s-example-user-code-1"
-                port: 3030
-                name: "user-code-example"
-
-        postgresql:
-          enabled: true
-          auth:
-            username: dagster
-            password: dagster
-            database: dagster
-          primary:
-            persistence:
-              enabled: false
-
-        dagster-user-deployments:
-          enabled: true
-          enableSubchart: true
-          deployments:
-            - name: "k8s-example-user-code-1"
-              image:
-                repository: "docker.io/dagster/user-code-example"
-                pullPolicy: IfNotPresent
-              dagsterApiGrpcArgs:
-                - "--python-file"
-                - "/example_project/example_repo/repo.py"
-              port: 3030
-
+      valueFiles:
+        - dagster-values.yaml
+        - dagster-user-values.yaml
 
   destination:
     server: https://kubernetes.default.svc
