@@ -1,18 +1,18 @@
 dagster:
-dagster-user-deployments:
-  enabled: true
-  enableSubchart: true
+  dagster-user-deployments:
+    enabled: true
+    enableSubchart: true
 
-  deployments:
-    - name: "git-user-code"
-      image:
-        repository: "docker.io/dagster/user-code-example"
-        tag: "1.12.1"     # or whatever tag you want
-        pullPolicy: IfNotPresent
+    deployments:
+      - name: "git-user-code"
+        image:
+          repository: "docker.io/dagster/user-code-example"
+          tag: "1.12.1"     # or whatever tag you want
+          pullPolicy: IfNotPresent
 
-      # This is what the chart turns into `dagster api grpc ...`
-      dagsterApiGrpcArgs:
-        - "--python-file"
-        - "/example_project/example_repo/repo.py"
+        # This is what the chart turns into `dagster api grpc ...`
+        dagsterApiGrpcArgs:
+          - "--python-file"
+          - "/example_project/example_repo/repo.py"
 
-      port: 3030
+        port: 3030
