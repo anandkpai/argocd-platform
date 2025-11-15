@@ -1,22 +1,18 @@
 dagster:
-  dagster-user-deployments:
-    enabled: true
-    enableSubchart: true
+dagster-user-deployments:
+  enabled: true
+  enableSubchart: true
 
-    deployments:
-      - name: "git-user-code"
-        image:
-          repository: "docker.io/dagster/dagster-k8s"
-          tag: "1.12.1"
-          pullPolicy: IfNotPresent
+  deployments:
+    - name: "git-user-code"
+      image:
+        repository: "docker.io/dagster/user-code-example"
+        tag: "1.12.1"     # or whatever tag you want
+        pullPolicy: IfNotPresent
 
-        port: 3030
+      # This is what the chart turns into `dagster api grpc ...`
+      dagsterApiGrpcArgs:
+        - "--python-file"
+        - "/example_project/example_repo/repo.py"
 
-        serverK8sConfig:
-          containerConfig:
-            command: ["/bin/bash", "-c"]
-            args: |
-              echo "Custom command starting indefinitely..."
-              # Use an infinite sleep to keep the container running
-              sleep infinity
-                    # no env needed for this test
+      port: 3030
