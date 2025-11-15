@@ -6,7 +6,7 @@ dagster:
     deployments:
       - name: "git-user-code"
         image:
-          repository: "anandkpai/dagster-hello"
+          repository: "apdocker2021/dagster-hello"
           tag: "latest"     
           pullPolicy: IfNotPresent
 
