@@ -7,12 +7,12 @@ dagster:
       - name: "git-user-code"
         image:
           repository: "docker.io/dagster/user-code-example"
-          tag: "1.12.1"     # or whatever tag you want
+          tag: "1.12.1"     
           pullPolicy: IfNotPresent
 
         # This is what the chart turns into `dagster api grpc ...`
         dagsterApiGrpcArgs:
           - "--python-file"
-          - "/example_project/example_repo/repo.py"
+          - "/iris_analysis/definitions.py"
 
         port: 3030
