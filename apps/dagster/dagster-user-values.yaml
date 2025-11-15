@@ -6,13 +6,13 @@ dagster:
     deployments:
       - name: "git-user-code"
         image:
-          repository: "docker.io/dagster/user-code-example"
-          tag: "1.12.1"     
+          repository: "anandkpai/dagster-hello"
+          tag: "latest"     
           pullPolicy: IfNotPresent
 
         # This is what the chart turns into `dagster api grpc ...`
         dagsterApiGrpcArgs:
           - "--python-file"
-          - "/iris_analysis/definitions.py"
+          - "/workspace/dagster/hello.py"
 
         port: 3030
