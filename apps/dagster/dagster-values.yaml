@@ -10,11 +10,26 @@ dagster:
           name: "user-code-example"
 
   postgresql:
-    enabled: true
-    auth:
-      username: dagster
-      password: dagster
-      database: dagster
-    primary:
-      persistence:
-        enabled: false
+    enabled: false 
+    # auth:
+    #   username: dagster
+    #   password: dagster
+    #   database: dagster
+    # primary:
+    #   persistence:
+    #     enabled: false
+
+    # Host/IP of the Postgres instance as seen from pods in the kind cluster.
+    # For kind running inside the same WSL distro, this is typically the WSL
+    # host/bridge IP (often 172.17.0.1, but adjust if yours is different).
+    postgresqlHost: "172.23.190.164"
+
+    # Default superuser on a standard Postgres install
+    postgresqlUsername: "postgres"
+    postgresqlPassword: "postgres"
+
+    # Default database created by Postgres; change if you made a separate DB
+    postgresqlDatabase: "postgres"
+
+    service:
+      port: 5432
